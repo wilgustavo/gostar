@@ -1,19 +1,12 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/wilgustavo/gostar/starship/adapters/csv"
-	"github.com/wilgustavo/gostar/starship/adapters/rest"
+	"github.com/spf13/cobra"
+	"github.com/wilgustavo/gostar/cli"
 )
 
 func main() {
-	rest := rest.NewStarshipRestDeserializer()
-	lista, err := rest.ListSharships()
-	if err != nil {
-		fmt.Println("Error al obtener la lista", err)
-	} else {
-		repo := csv.NewStarshipCSVSerializer("prueba.csv")
-		repo.SaveSharships(lista)
-	}
+	rootCmd := &cobra.Command{Use: "starship"}
+	rootCmd.AddCommand(cli.ListarArchivoCmd())
+	rootCmd.Execute()
 }

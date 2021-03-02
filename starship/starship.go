@@ -11,7 +11,7 @@ type Starship struct {
 
 // Deserializer get a list of Starships
 type Deserializer interface {
-	ListSharships() []Starship
+	ListSharships() ([]Starship, error)
 }
 
 // Serializer persist a list of Starships

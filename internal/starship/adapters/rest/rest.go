@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/wilgustavo/gostar/starship"
+	"github.com/wilgustavo/gostar/internal/starship"
 )
 
 type deserializer struct {

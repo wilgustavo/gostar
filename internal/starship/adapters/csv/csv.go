@@ -4,7 +4,7 @@ import (
 	"encoding/csv"
 	"os"
 
-	"github.com/wilgustavo/gostar/starship"
+	"github.com/wilgustavo/gostar/internal/starship"
 )
 
 type serializer struct {

@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/wilgustavo/gostar/starship"
-	"github.com/wilgustavo/gostar/starship/adapters/csv"
-	"github.com/wilgustavo/gostar/starship/adapters/rest"
+	"github.com/wilgustavo/gostar/internal/starship"
+	"github.com/wilgustavo/gostar/internal/starship/adapters/csv"
+	"github.com/wilgustavo/gostar/internal/starship/adapters/rest"
 )
 
 // CobraFn funcion para ejecutar un comando

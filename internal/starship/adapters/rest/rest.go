@@ -42,27 +42,40 @@ func NewStarshipRestDeserializer() starship.Deserializer {
 
 // ListSharships list a Sharships from API Rest
 func (d *deserializer) ListSharships() ([]starship.Starship, error) {
-	var datos *shipJSON
+	var lista []starship.Starship
+	datos, err := getStarships(d.url)
+	for err == nil {
+		result := mapShip(datos)
+		lista = append(lista, result...)
+		if datos.Next == "" {
+			break
+		}
+		datos, err = getStarships(datos.Next)
+	}
+	return lista, err
+}
 
+func getStarships(url string) (shipJSON, error) {
+	var datos shipJSON
 	client := &http.Client{
 		Timeout: 10 * time.Second,
 	}
 
-	response, error := client.Get(d.url)
-	if error != nil {
-		return nil, error
+	response, err := client.Get(url)
+	if err != nil {
+		return datos, err
 	}
 
-	contents, error := ioutil.ReadAll(response.Body)
-	if error != nil {
-		return nil, error
+	contents, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return datos, err
 	}
 
-	error = json.Unmarshal(contents, &datos)
-	return mapShip(datos), error
+	err = json.Unmarshal(contents, &datos)
+	return datos, err
 }
 
-func mapShip(datos *shipJSON) []starship.Starship {
+func mapShip(datos shipJSON) []starship.Starship {
 	var lista []starship.Starship
 	for _, item := range datos.Results {
 		lista = append(lista, starship.Starship{
